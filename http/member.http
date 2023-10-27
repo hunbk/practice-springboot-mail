@@ -1,0 +1,12 @@
+### 회원가입
+POST http://localhost:8080/api/members/signup
+Content-Type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "1234",
+  "nickname": "test"
+}
+
+### 회원 전체조회
+GET http://localhost:8080/api/members
