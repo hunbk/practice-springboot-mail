@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <img src="cid:logo">
+    <h3><span th:text="${nickname}"></span>님 안녕하세요.</h3>
+    <p>아래 링크를 클릭하여 이메일 인증을 완료해 주세요.</p>
+    <a href="#" th:href="${verificationLink}" th:text="${verificationLink}"></a>
+</body>
+</html>

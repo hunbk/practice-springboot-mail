@@ -4,6 +4,7 @@
 ## Gmail 설정
 - 구글 - 보안 - 2단계 인증 - 앱 비밀번호 생성
 - 생성한 앱 비밀번호를 스프링 메일 서비스에서 사용함(`application.properties` 설정)
+- 구글 가이드(https://support.google.com/accounts/answer/185833)
 
 ## application.properties 설정
 ```properties
@@ -34,3 +35,4 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 
 ## 참고
 - ChatGPT
+- baeldung(https://www.baeldung.com/spring-email-templates)
