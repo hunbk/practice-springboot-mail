@@ -1,6 +1,8 @@
 # 스프링부트 메일 앱
 스프링부트 이메일 인증
-![스크린샷](https://github.com/hunbk/practice-springboot-mail/assets/52270259/1b509dbc-a7ce-45dc-9f18-d8a13ac97fff)
+<p align="middle" >
+  <img width="70%" alt="스크린샷" src="https://github.com/hunbk/practice-springboot-mail/assets/52270259/1b509dbc-a7ce-45dc-9f18-d8a13ac97fff">
+</p>
 
 ## Gmail 설정
 - 구글 - 보안 - 2단계 인증 - 앱 비밀번호 생성
