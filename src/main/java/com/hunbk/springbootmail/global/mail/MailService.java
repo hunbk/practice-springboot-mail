@@ -7,6 +7,7 @@ import com.hunbk.springbootmail.member.domain.VerificationToken;
 import com.hunbk.springbootmail.member.persistence.MemberRepository;
 import com.hunbk.springbootmail.member.persistence.TokenRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -58,11 +59,14 @@ public class MailService {
         String verificationLink = "http://localhost:8080/api/members/verify/" + verificationToken.getToken();
         String mailContent = createEmailContent(nickname, verificationLink);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
         try {
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
             helper.setTo(email);
             helper.setSubject("[스프링부트 메일 앱] 회원가입을 환영합니다! 이메일을 인증해 주세요.");
             helper.setText(mailContent, true);
+
+            ClassPathResource resource = new ClassPathResource("static/logo.png");
+            helper.addInline("logo", resource);
         } catch (MessagingException e) {
             throw new RuntimeException("이메일 전송에 실패했습니다.", e);
         }

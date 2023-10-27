@@ -1,5 +1,6 @@
 # 스프링부트 메일 앱
 스프링부트 이메일 인증
+![스크린샷](https://github.com/hunbk/practice-springboot-mail/assets/52270259/1b509dbc-a7ce-45dc-9f18-d8a13ac97fff)
 
 ## Gmail 설정
 - 구글 - 보안 - 2단계 인증 - 앱 비밀번호 생성
@@ -32,6 +33,7 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 - `spring.mail.password`: 메일 서버에 로그인하는 데 사용되는 비밀번호입니다.
 - `spring.mail.properties.mail.smtp.auth`: SMTP 인증을 사용하도록 설정합니다. 일반적으로 `true`로 설정합니다.
 - `spring.mail.properties.mail.smtp.starttls.enable`: STARTTLS 보안을 사용하도록 설정합니다. 일반적으로 `true`로 설정합니다.
+
 
 ## 참고
 - ChatGPT
