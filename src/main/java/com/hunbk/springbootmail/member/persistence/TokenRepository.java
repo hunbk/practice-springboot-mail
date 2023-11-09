@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface TokenRepository extends JpaRepository<VerificationToken, Long> {
 
     Optional<VerificationToken> findByToken(String token);
+    boolean existsByToken(String token);
 
 }

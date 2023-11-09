@@ -7,6 +7,7 @@ import com.hunbk.springbootmail.member.domain.VerificationToken;
 import com.hunbk.springbootmail.member.persistence.MemberRepository;
 import com.hunbk.springbootmail.member.persistence.TokenRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,6 +19,7 @@ import org.thymeleaf.context.Context;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -32,8 +34,7 @@ public class MailService {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(ErrorCode.NO_SUCH_MEMBER));
 
-        VerificationToken verificationToken = new VerificationToken(member);
-        //TODO: 토큰 UUID 중복 체크
+        VerificationToken verificationToken = createUniqueVerificationToken(member);
         tokenRepository.save(verificationToken);
 
         MimeMessage mimeMessage = createMimeEmail(email, member.getNickname(), verificationToken);
@@ -78,5 +79,25 @@ public class MailService {
         context.setVariable("nickname", nickname);
         context.setVariable("verificationLink", verificationLink);
         return templateEngine.process("verification-email", context);
+    }
+
+    /**
+     * 중복되지 않는 인증을 토큰 생성합니다.
+     * 최대 5번까지 중복되는 토큰이 생성되면, 예외를 발생시킵니다.
+     */
+    private VerificationToken createUniqueVerificationToken(Member member) {
+        int maxAttempts = 5;
+        VerificationToken verificationToken = new VerificationToken(member);
+
+        //토큰 UUID 중복 체크
+        for (int attempt = 0; attempt < maxAttempts; attempt++) {
+            if (tokenRepository.existsByToken(verificationToken.getToken())) {
+                verificationToken = new VerificationToken(member);
+            } else {
+                return verificationToken;
+            }
+        }
+        log.error("MailService 인증 토큰 생성 실패: email={}", member.getEmail());
+        throw new RuntimeException("인증 토큰 생성 실패");
     }
 }
